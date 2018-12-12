@@ -7,13 +7,13 @@ import org.springframework.context.annotation.Configuration;
 public class AppConfig {
 
     @Bean
-    public EmployeeDao employeeDao(){
+    public LocationDao employeeDao() {
         System.out.println("empolyeedao");
-        return new EmployeeDao();
+        return new LocationDao();
     }
 
     @Bean
-    public EmployeeService employeeService() {
-        return new EmployeeService(employeeDao());
+    public LocationService employeeService() {
+        return new LocationService(employeeDao());
     }
 }
