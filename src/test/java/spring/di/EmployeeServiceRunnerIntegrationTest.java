@@ -16,10 +16,14 @@ public class EmployeeServiceRunnerIntegrationTest {
 
     @Autowired
     private EmployeeService employeeService;
+    @Autowired
+    private Employee2Service employee2Service;
 
     @Test
     public void testSaveList() {
         employeeService.saveEmployee("    DDD ");
         assertEquals(List.of("DDD"), employeeService.listEmployees());
+        employee2Service.saveEmployee("    aaa ");
+        assertEquals(List.of("aaa"), employee2Service.listEmployees());
     }
 }

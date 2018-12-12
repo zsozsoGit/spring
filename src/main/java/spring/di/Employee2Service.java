@@ -2,13 +2,12 @@ package spring.di;
 
 import java.util.List;
 
-public class EmployeeService {
+public class Employee2Service {
 
     private EmployeeDao employeeDao;
 
 
-
-    public EmployeeService(EmployeeDao employeeDao) {
+    public Employee2Service(EmployeeDao employeeDao) {
         System.out.println("EmployeeDao constr");
         this.employeeDao = employeeDao;
     }
