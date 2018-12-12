@@ -8,18 +8,20 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.List;
 
-import static org.junit.Assert.assertEquals;
+import static junit.framework.TestCase.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = AppConfig.class)
-public class EmployeeServiceRunnerIntegrationTest {
-
+public class LocationIntTest {
     @Autowired
-    private EmployeeService employeeService;
+    private LocationService locationService;
+
 
     @Test
-    public void testSaveList() {
-        employeeService.saveEmployee("    DDD ");
-        assertEquals(List.of("DDD"), employeeService.listEmployees());
+    public void allTest() {
+        locationService.createLocation("t1", 2, 3);
+        locationService.createLocation("t4", 5, 6);
+        assertEquals(List.of(new Location("t1", 2, 6)), locationService.listLocations());
+
     }
 }
