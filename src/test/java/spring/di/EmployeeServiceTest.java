@@ -1,15 +1,21 @@
 package spring.di;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.junit.MockitoJUnitRunner;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.verify;
 
+@RunWith(MockitoJUnitRunner.class)
 public class EmployeeServiceTest {
 
-    private EmployeeDao employeeDao = mock(EmployeeDao.class);
-
-    private EmployeeService employeeService = new EmployeeService(employeeDao);
+    @Mock
+    private EmployeeDao employeeDao;
+    @InjectMocks
+    private EmployeeService employeeService;
 
     @Test
     public void testSave() {
