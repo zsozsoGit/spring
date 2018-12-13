@@ -3,7 +3,14 @@
        xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans.xsd">
-    <bean id="location" class="spring.di.Location"/>
+
+
+    <bean id="location" class="spring.di.Location" scope="prototype">
+        <constructor-arg value="Change name"/>
+        <constructor-arg value="10.1"/>
+        <constructor-arg value="20.2"/>
+    </bean>
+
     <bean id="locationDao" class="spring.di.LocationDao"/>
 
     <bean id="locationService" class="spring.di.LocationService">

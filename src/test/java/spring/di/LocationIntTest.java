@@ -19,9 +19,17 @@ public class LocationIntTest {
 
     @Test
     public void allTest() {
-        locationService.createLocation("t1", 2, 3);
-        locationService.createLocation("t4", 5, 6);
-        assertEquals(locationService.listLocations(), List.of(new Location("", 1, 0)));
+        //locationService.createLocation("t1", 2, 3);
+        //locationService.createLocation("t4", 5, 6);
+        //assertEquals("t1", locationService.listLocations().get(0).getName());
+
+        Location l1 = locationService.createLocationTemplate();
+
+        System.out.println(l1);
+
+        Location l2 = locationService.createLocationTemplate();
+
+        System.out.println(l2);
 
     }
 }

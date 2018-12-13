@@ -1,5 +1,6 @@
 package spring.di;
 
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +11,12 @@ public class LocationService {
 
     private LocationDao locationDao;
 
+    private ApplicationContext applicationContext;
 
-    public LocationService(LocationDao locationDao) {
+
+    public LocationService(LocationDao locationDao, ApplicationContext applicationContext) {
         this.locationDao = locationDao;
+        this.applicationContext = applicationContext;
     }
 
     public Location getLocationById(long id) {
@@ -20,11 +24,8 @@ public class LocationService {
 
     }
 
-    public void createLocationTemplate() {
-        try (AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class)) {
-            Location location = context.getBean(Location.class);
-
-        }
+    public Location createLocationTemplate() {
+        return applicationContext.getBean(Location.class);
     }
 
     public void deleteLocation(long id) {
