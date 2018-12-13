@@ -11,7 +11,7 @@ import java.util.List;
 import static junit.framework.TestCase.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = AppConfig.class)
+@ContextConfiguration(locations = "classpath:/application-context.xml")
 public class LocationIntTest {
     @Autowired
     private LocationService locationService;
@@ -21,7 +21,7 @@ public class LocationIntTest {
     public void allTest() {
         locationService.createLocation("t1", 2, 3);
         locationService.createLocation("t4", 5, 6);
-        assertEquals(List.of(new Location("t1", 2, 6)), locationService.listLocations());
+        assertEquals(locationService.listLocations(), List.of(new Location("", 1, 0)));
 
     }
 }

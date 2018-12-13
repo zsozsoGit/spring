@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans.xsd">
+    <bean id="location" class="spring.di.Location"/>
+    <bean id="locationDao" class="spring.di.LocationDao"/>
+
+    <bean id="locationService" class="spring.di.LocationService">
+        <constructor-arg ref="locationDao"/>
+    </bean>
+</beans>

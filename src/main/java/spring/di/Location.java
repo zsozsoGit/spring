@@ -1,5 +1,9 @@
 package spring.di;
 
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Repository;
+
+@Repository
 public class Location {
     private static Long counter = 0L;
     Long id;
