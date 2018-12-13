@@ -1,10 +1,13 @@
 package spring.di;
 
+import org.springframework.stereotype.Repository;
+
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@Repository
 public class EmployeeDao {
     private List<String> employee = Collections.synchronizedList(new ArrayList<>());
 

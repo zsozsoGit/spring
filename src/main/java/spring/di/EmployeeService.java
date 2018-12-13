@@ -1,7 +1,9 @@
 package spring.di;
 
-import java.util.List;
+import org.springframework.stereotype.Service;
 
+import java.util.List;
+@Service
 public class EmployeeService {
 
     private EmployeeDao employeeDao;
@@ -9,7 +11,7 @@ public class EmployeeService {
 
 
     public EmployeeService(EmployeeDao employeeDao) {
-        System.out.println("EmployeeDao constr");
+        System.out.println("EmployeeService constr with: " + employeeDao.toString());
         this.employeeDao = employeeDao;
     }
 
