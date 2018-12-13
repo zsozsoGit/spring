@@ -10,7 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Repository
-@Qualifier("simple")
+@Simple
 public class SimpleEmployeeDao implements EmployeeDao {
     private List<String> employee = Collections.synchronizedList(new ArrayList<>());
 

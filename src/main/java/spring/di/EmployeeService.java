@@ -11,7 +11,7 @@ public class EmployeeService {
 
 
 
-    public EmployeeService(@Qualifier("simple") EmployeeDao employeeDao) {
+    public EmployeeService(@Simple EmployeeDao employeeDao) {
         System.out.println("EmployeeService constr with: " + employeeDao.toString());
         this.employeeDao = employeeDao;
     }
