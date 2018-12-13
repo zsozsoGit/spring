@@ -1,5 +1,7 @@
 package spring.di;
 
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Repository;
 
 import javax.annotation.PostConstruct;
@@ -8,6 +10,7 @@ import java.util.Collections;
 import java.util.List;
 
 @Repository
+@Qualifier("simple")
 public class SimpleEmployeeDao implements EmployeeDao {
     private List<String> employee = Collections.synchronizedList(new ArrayList<>());
 

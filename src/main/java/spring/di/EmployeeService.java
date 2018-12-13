@@ -1,5 +1,6 @@
 package spring.di;
 
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -10,7 +11,7 @@ public class EmployeeService {
 
 
 
-    public EmployeeService(EmployeeDao employeeDao) {
+    public EmployeeService(@Qualifier("simple") EmployeeDao employeeDao) {
         System.out.println("EmployeeService constr with: " + employeeDao.toString());
         this.employeeDao = employeeDao;
     }
