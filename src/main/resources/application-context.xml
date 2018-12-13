@@ -4,7 +4,7 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
 http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="employeeDao" class="spring.di.EmployeeDao" />
+    <bean id="employeeDao" class="spring.di.SimpleEmployeeDao" />
     <bean id="employeeService" class="spring.di.EmployeeService" >
         <constructor-arg ref="employeeDao" />
     </bean>
