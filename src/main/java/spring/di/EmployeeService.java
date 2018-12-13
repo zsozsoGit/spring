@@ -1,14 +1,16 @@
 package spring.di;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+
 @Service
 public class EmployeeService {
 
     private EmployeeDao employeeDao;
-
+    private MailService mailService;
 
 
     public EmployeeService(@Simple EmployeeDao employeeDao) {
@@ -19,10 +21,16 @@ public class EmployeeService {
     public void saveEmployee(String name) {
         //Business Logic
         String trimmedName = name.trim();
+        if (mailService != null)        mailService.sendMail();
         employeeDao.saveEmployee(trimmedName);
     }
 
     public List<String> listEmployees() {
         return employeeDao.listEmployees();
+    }
+
+    @Autowired(required = false)
+    public void setMailService(MailService mailService) {
+        this.mailService = mailService;
     }
 }
