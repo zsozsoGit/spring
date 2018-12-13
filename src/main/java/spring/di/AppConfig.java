@@ -7,6 +7,7 @@ import org.springframework.core.env.Environment;
 @Configuration
 @ComponentScan(basePackageClasses = AppConfig.class)
 @PropertySource("classpath:/application.properites")
+
 public class AppConfig {
     @Autowired
     private Environment environment;

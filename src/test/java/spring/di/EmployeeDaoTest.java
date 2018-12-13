@@ -1,6 +1,7 @@
 package spring.di;
 
 import org.junit.Test;
+import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
 

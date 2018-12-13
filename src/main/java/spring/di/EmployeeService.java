@@ -15,7 +15,7 @@ public class EmployeeService {
     private MailService mailService;
     private ApplicationEventPublisher applicationEventPublisher;
 
-    public EmployeeService(@Simple EmployeeDao employeeDao) {
+    public EmployeeService( EmployeeDao employeeDao) {
         System.out.println("EmployeeService constr with: " + employeeDao.toString());
         this.employeeDao = employeeDao;
     }
