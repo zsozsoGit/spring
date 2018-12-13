@@ -17,9 +17,17 @@ public class EmployeeServiceRunnerIntegrationTest {
     @Autowired
     private EmployeeService employeeService;
 
+    @Autowired
+    private CounterAspect counterAspect;
+
     @Test
     public void testSaveList() {
+        counterAspect.reset();
         employeeService.saveEmployee("    DDD ");
-        assertEquals(List.of("DDD"), employeeService.listEmployees());
+        employeeService.saveEmployee("    SSS ");
+        employeeService.saveEmployee("    DDD ");
+        employeeService.listEmployees();
+        assertEquals(List.of("DDD", "SSS", "DDD"), employeeService.listEmployees());
+        assertEquals(3, counterAspect.getCount());
     }
 }
