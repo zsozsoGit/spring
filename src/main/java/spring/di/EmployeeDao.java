@@ -1,59 +1,54 @@
 package spring.di;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.stereotype.Repository;
 
 import javax.sql.DataSource;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collections;
+import java.sql.Statement;
 import java.util.List;
+import java.util.Objects;
 
 @Repository
 public class EmployeeDao {
+    private JdbcTemplate jdbcTemplate;
     private DataSource myDataSource;
 
     @Autowired
     public EmployeeDao(DataSource myDataSource) {
-        this.myDataSource = myDataSource;
+        jdbcTemplate = new JdbcTemplate(myDataSource);
     }
 
 
-    public void saveEmployee(String name) {
-        try (
-                Connection conn = myDataSource.getConnection();
-                PreparedStatement ps = conn.prepareStatement("insert into employees(emp_name) values (?)")
-        ) {
-            ps.setString(1, name);
-            ps.executeUpdate();
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-
+    public long saveEmployee(String name) {
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+// ------------------- With lambda:
+        jdbcTemplate.update(connection -> {
+            PreparedStatement preparedStatement = connection.prepareStatement("insert into employees(emp_name) values(?)",
+                    Statement.RETURN_GENERATED_KEYS);
+            preparedStatement.setString(1, name);
+            return preparedStatement;
+        }, keyHolder);
+        return Objects.requireNonNull(keyHolder.getKey()).longValue();
+// ------------------- WithOUT lambda:
+//        jdbcTemplate.update(new PreparedStatementCreator() {
+//            @Override
+//            public PreparedStatement createPreparedStatement(Connection connection) throws SQLException {
+//                PreparedStatement preparedStatement = connection.prepareStatement("insert into employees(emp_name) values(?)",
+//                        Statement.RETURN_GENERATED_KEYS);
+//                preparedStatement.setString(1, name);
+//                return preparedStatement;
+//            }
+//        }, keyHolder);
+//        return keyHolder.getKey().longValue();
     }
 
     public List<String> listEmployees() {
-        try (
-                Connection conn = myDataSource.getConnection();
-                PreparedStatement ps = conn.prepareStatement("select emp_name from employees");
-                ResultSet rs = ps.executeQuery()
-        ) {
-            List<String> names = new ArrayList<>();
-            while (rs.next()) {
-                String name = rs.getString("emp_name");
-                names.add(name);
-
-            }
-            return names;
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
+        return jdbcTemplate.query("select emp_name from employees order by emp_name",
+                (resultSet, rowNum) -> resultSet.getString("emp_name"));
     }
 }

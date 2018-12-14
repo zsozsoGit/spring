@@ -1,5 +1,7 @@
 package spring.di;
 
+import org.flywaydb.core.Flyway;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,14 +15,24 @@ import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(classes = AppConfig.class)
-@Sql(scripts = "classpath:/clear.sql")
+//@Sql(scripts = "classpath:/clear.sql")
 public class EmployeeDaoTest {
     @Autowired
     private EmployeeDao employeeDao;
 
+    @Autowired
+    private Flyway flyway;
+
+    @Before
+    public void init() {
+        flyway.clean();
+        flyway.migrate();
+    }
+
     @Test
     public void testSaveThanList() {
-        employeeDao.saveEmployee("HUHU ");
-        assertEquals(List.of("HUHU "), employeeDao.listEmployees());
+        long id = employeeDao.saveEmployee("1HUHU ");
+        System.out.println(">>>ID is: " + id);
+        assertEquals(List.of("1HUHU "), employeeDao.listEmployees());
     }
 }
