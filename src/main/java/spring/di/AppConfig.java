@@ -1,6 +1,7 @@
 package spring.di;
 
 import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -24,5 +25,13 @@ public class AppConfig {
         mysqlDataSource.setPassword(environment.getProperty("jdbc.password"));
         return mysqlDataSource;
 
+    }
+
+    @Bean
+    public Flyway flyway() {
+        Flyway flyway = new Flyway();
+        flyway.setDataSource(dataSource());
+        flyway.migrate();
+        return flyway;
     }
 }
