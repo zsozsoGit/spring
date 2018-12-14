@@ -31,8 +31,8 @@ public class EmployeeDaoTest {
 
     @Test
     public void testSaveThanList() {
-        long id = employeeDao.saveEmployee("1HUHU ");
-        System.out.println(">>>ID is: " + id);
+        employeeDao.saveEmployee("15HUHU ");
+
         assertEquals(List.of("1HUHU "), employeeDao.listEmployees());
     }
 }
