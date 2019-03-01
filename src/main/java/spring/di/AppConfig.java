@@ -1,6 +1,6 @@
 package spring.di;
 
-import com.mysql.jdbc.jdbc2.optional.MysqlDataSource;
+import oracle.jdbc.pool.OracleDataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
@@ -9,6 +9,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 
 import javax.sql.DataSource;
+import java.sql.SQLException;
 
 @Configuration
 @ComponentScan(basePackageClasses = AppConfig.class)
@@ -16,13 +17,16 @@ import javax.sql.DataSource;
 public class AppConfig {
     @Autowired
     private Environment environment;
+
     @Bean
     public DataSource dataSource() {
-        MysqlDataSource mysqlDataSource = new MysqlDataSource();
-        mysqlDataSource.setUrl(environment.getProperty("jdbc.url"));
-        mysqlDataSource.setUser(environment.getProperty("jdbc.username"));
-        mysqlDataSource.setPassword(environment.getProperty("jdbc.password"));
-        return mysqlDataSource;
+        try {
+            OracleDataSource dataSource = new OracleDataSource();
+            return dataSource;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        throw new IllegalStateException("Cant connect");
 
     }
 }
